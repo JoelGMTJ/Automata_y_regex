@@ -26,8 +26,8 @@ En esta segunda versión de mi autómata, ya está hecho digitalmente, mejorando
 
 Aquí también están las mismas imágenes con códigos de color para más claridad del programa:
 
-<img src="images/DFA_pretty.png" alt="DFA corregido" width="500">
-<img src="images/tabla_pretty.png" alt="DFA corregido" width="500">
+<img src="images/DFA_pretty.png" alt="DFA color code" width="500">
+<img src="images/Tabla_pretty.png" alt="DFA table with color" width="500">
 
 
 
