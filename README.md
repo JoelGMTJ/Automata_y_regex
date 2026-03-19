@@ -23,3 +23,14 @@ Tenía algunos errores en la lógica como que en cuanto llegue a q6 (estado fina
 <img src="images/DFA_boring.png" alt="DFA corregido" width="500">
 
 En esta segunda versión de mi autómata, ya está hecho digitalmente, mejorando la visibilidad. También corregí el error que cuando llegaba a q6 no tendría ningún lugar a donde ir.
+
+Aquí también están las mismas imágenes con códigos de color para más claridad del programa:
+
+<img src="images/DFA_pretty.png" alt="DFA corregido" width="500">
+<img src="images/tabla_pretty.png" alt="DFA corregido" width="500">
+
+
+
+## Referencias
+
+Automata and computability : a programmer’s perspective / Ganesh Lalitha Gopalakrishnan. (2019). CRC Press, Taylor & Francis Group, page 42
