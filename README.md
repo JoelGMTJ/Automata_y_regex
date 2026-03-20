@@ -33,8 +33,13 @@ Aqui van las pruebas que haga con los programas
 
 ## Soluciones con Regex
 
-Mi primera versión de mi expresión en Regex es funcional pero bastante larga
-<b>((a|b|c)*((aa)|(bb))(a|b|c)*(bc))|((a|b|c)*(bbc))</b>
+Mi primera versión de mi expresión en Regex es funcional pero bastante larga <br>
+<b>((a|b|c)\*((aa)|(bb))(a|b|c)\*(bc))|((a|b|c)*(bbc))</b><br>
+Esta fue la primera versión, la cual queda tan larga pues tiene que considerar los casos que contenga el par de letras 'aa' y 'bb' en algun momento
+y terminar con 'bc' y el otro caso que es cuando el conjunto de letras 'bc' final es parte de la repeticion de letras 'bb'.
+
+<b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)</b><br>
+Esta es mi segunda version
 
 ## Referencias
 
