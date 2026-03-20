@@ -5,13 +5,13 @@ Joel Guadalupe García Guzmán - A01713785
 
 ## Descripción
 
-El lenguaje que yo escogí tiene las siguientes reglas:
+El lenguaje que yo escogí se compone de Σ = a,b,c y sigue las siguientes reglas
 <ul>
-    <li>Todas las combinaciones con las letras <b>abc</b></li>
     <li>Tiene que tener <b>aa</b> o <b>bb</b></li>
     <li>Tiene que terminar en <b>bc</b></li>
 </ul>
 Esas son todas las reglas de mi lenguaje. Al ser muy pocas voy a usar un autómata determinístico finito (<b>DFA</b> por sus siglas en inglés). <br>
+Voy a nombrar a todos los estados como q1, q2 ... q6.
 
 ## Soluciones con autómatas
 
@@ -29,7 +29,12 @@ Aquí también están las mismas imágenes con códigos de color para más clari
 <img src="images/DFA_pretty.png" alt="DFA color code" width="500">
 <img src="images/Tabla_pretty.png" alt="DFA table with color" width="500">
 
+Aqui van las pruebas que haga con los programas 
 
+## Soluciones con Regex
+
+Mi primera versión de mi expresión en Regex es funcional pero bastante larga
+<b>((a|b|c)*((aa)|(bb))(a|b|c)*(bc))|((a|b|c)*(bbc))</b>
 
 ## Referencias
 
