@@ -38,6 +38,35 @@ Mi DFA se basa en que en cuanto llegues ya sea a q3 o q5 significa que ya has cu
 Después de esto, q3 representa haber llegado desde una 'a' y q5 representa llegar desde una 'b'.
 Mi única posición final es q6, y para llegar a este estado solo lo puedes hacer dando un salto si ocurre la letra 'c' desde el estado q5, así asegurandonos la condicion que termine en 'bc'.
 
+### Pruebas de mi DFA
+
+Para probar mi DFA vamos a usar el programa prolog y vamos a correr el script \'tests.pl' el cual contiene varias pruebas de mi lenguaje. Dentro de ahí manda a llamar el script \'automataTester.pl' donde viene la lógica de mi DFA.
+
+Dentro del script primero especifico todas las conexiones de mi DFA, esta parte es solamente traducir de mi DFA a código de prolog. Su estructura es <i>connects(a,b,c)</i>, donde 'a' y 'c' son estados, y 'b' es la conexion que va de 'a' hacia 'c'. Ejemplo de todas las conexiones de q1 con todas las diferentes letras.
+
+```
+connects(q1,a,q2).
+connects(q1,b,q4).
+connects(q1,c,q1).
+```
+También es importante declarar que solamente q6 es el estado final, por lo que tenemos que declararlo en prolog.
+
+Después la parte que sí maneja la lógica 
+```
+% Condicion final, solo va a entrar cuando se haya terminado el string
+avanzar([],Estadofinal,_):-
+    final(Estadofinal).
+```
+``` 
+% Funcion principal, recorre todo el DFA
+avanzar([Action|Rest], Current, Answer):-
+    connects(Current,Action,Nextpos),
+    avanzar(Rest,Nextpos,Answer).
+```
+El segundo bloque de código va a ocurrir siempre que el string aún tenga caracteres por recorrer. Lo que hace es buscar la conexion del estado Current con Nextpos y guarda el estado al que se dirige como Nextpos, donde si aún quedan objetos en la lista se vuelve a ejecutar hasta que no quede ninguno.
+
+El primer bloque de código es la condición de paro, la cual es que la lista esté vacia, es decir, que ya la hayamos recorrido por completo, donde revisa si el Estadofinal si sea el final, es decir, q6.
+
 ## Soluciones con Regex
 
 Mi primera versión de mi expresión en Regex es funcional pero bastante larga <br>
@@ -46,7 +75,10 @@ Esta fue la primera versión, la cual queda tan larga pues tiene que considerar 
 y terminar con 'bc' y el otro caso que es cuando el conjunto de letras 'bc' final es parte de la repeticion de letras 'bb'.
 
 <b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)</b><br>
-Esta es mi segunda version, ahora más compacta gracias a 
+Esta es mi segunda version, ahora más compacta gracias a que logré simplificar las condiciones a centrarme más directamente en 3 condiciones
+1) Que el string contenga 'aa' y termine en 'bc'
+2) Que el string contenga 'bb' y termine en 'bc'
+3) Caso especial que el string termine en 'bbc'
 
 ## Referencias
 
