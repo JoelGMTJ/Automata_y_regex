@@ -10,7 +10,7 @@ El lenguaje que yo escogí se compone de Σ = a,b,c y sigue las siguientes regla
     <li>Tiene que tener <b>aa</b> o <b>bb</b></li>
     <li>Tiene que terminar en <b>bc</b></li>
 </ul>
-Esas son todas las reglas de mi lenguaje. Al ser muy pocas voy a usar un autómata determinístico finito (<b>DFA</b> por sus siglas en inglés). <br>
+Esas son todas las reglas de mi lenguaje. 
 Voy a nombrar a todos los estados como q1, q2 ... q6.
 
 ## Soluciones con autómatas
@@ -29,7 +29,14 @@ Aquí también están las mismas imágenes con códigos de color para más clari
 <img src="images/DFA_pretty.png" alt="DFA color code" width="500">
 <img src="images/Tabla_pretty.png" alt="DFA table with color" width="500">
 
-Aqui van las pruebas que haga con los programas 
+### Explicacion de mi DFA
+
+Voy a usar un autómata determinístico finito (<b>DFA</b> por sus siglas en inglés).
+Una breve explicación de el como funcionan los DFA es que son varios círculos llamados "estados", también tenemos las líneas llamadas "transiciones" o "saltos", a los estados que pueden ser finales los representamos como un círculo dentro de otro círculo y los llamamos "estados finales" (Gopalakrishnan 2019).
+
+Mi DFA se basa en que en cuanto llegues ya sea a q3 o q5 significa que ya has cumplido con la regla de "tener 'aa' o 'bb' almenos una vez", por eso mismo una vez que llegas a esos 2 estados no puedes volver a q1, q2 o q4.
+Después de esto, q3 representa haber llegado desde una 'a' y q5 representa llegar desde una 'b'.
+Mi única posición final es q6, y para llegar a este estado solo lo puedes hacer dando un salto si ocurre la letra 'c' desde el estado q5, así asegurandonos la condicion que termine en 'bc'.
 
 ## Soluciones con Regex
 
@@ -39,7 +46,7 @@ Esta fue la primera versión, la cual queda tan larga pues tiene que considerar 
 y terminar con 'bc' y el otro caso que es cuando el conjunto de letras 'bc' final es parte de la repeticion de letras 'bb'.
 
 <b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)</b><br>
-Esta es mi segunda version
+Esta es mi segunda version, ahora más compacta gracias a 
 
 ## Referencias
 
