@@ -2,7 +2,6 @@
 
 Joel Guadalupe García Guzmán - A01713785
 
-
 ## Descripción
 
 El lenguaje que voy a analizar es Σ = {a,b,c} con las siguientes restricciones:
@@ -61,7 +60,7 @@ Adjunto diagrama de DFA y tabla de DFA con coordinación de colores para mayor c
 
 Según la explicación del profesor Ganesh Lalitha Gopalakrishnan, un DFA tiene que tener 5 elementos en una tupla los cuales son los siguientes:
 
-<i>"Formally, a deterministic finite-state automaton D is described by five items presented as a tuple (...)
+<i>"Formally, a deterministic finite-state automaton D is described by five items presented as a tuple (...) <br>
 Q is a finite nonempty set of states, <br>
 Σ is a finite nonempty alphabet, <br>
 δ : Q ×Σ → Q is a total transition function, <br>
@@ -77,26 +76,26 @@ Por lo tanto, la definición formal de mi autómata es la siguiente:
     <li>F ⊆ {q6}</li>
 </ul>
 
-### Explicacion de mi DFA
+### Explicación de mi DFA
 
 En este proyecto estoy usando un Autómata Determinístico Finito (<b>DFA</b> por sus siglas en inglés).
 
-Mi DFA se basa en que en cuanto llegues ya sea a q3 o q5 significa que ya has cumplido con la regla de "tener 'aa' o 'bb' almenos una vez", por eso mismo una vez que llegas a esos 2 estados no puedes volver a q1, q2 o q4.
+Mi DFA se basa en que en cuanto llegues ya sea a q3 o q5 significa que ya has cumplido con la regla de "tener 'aa' o 'bb' al menos una vez", por eso mismo una vez que llegas a esos 2 estados no puedes volver a q1, q2 o q4.
 Después de esto, q3 representa haber llegado desde una 'a' y q5 representa llegar desde una 'b'.
-Mi única posición final es q6, y para llegar a este estado solo lo puedes hacer dando un salto si ocurre la letra 'c' desde el estado q5, así asegurandonos la condicion que termine en 'bc'.
+Mi única posición final es q6, y para llegar a este estado solo lo puedes hacer dando un salto si ocurre la letra 'c' desde el estado q5, así asegurandonos la condición que termine en 'bc'.
 
 ### Pruebas de mi DFA
 
-Para probar mi DFA vamos a usar el programa prolog y vamos a correr el script \'tests.pl' el cual contiene varias pruebas de mi lenguaje. Dentro de ahí manda a llamar el script \'automataTester.pl' donde viene la lógica de mi DFA.
+Para probar mi DFA vamos a usar el programa Prolog y vamos a correr el script \'tests.pl' el cual contiene varias pruebas de mi lenguaje. Dentro de ahí manda a llamar el script \'automataTester.pl' donde viene la lógica de mi DFA.
 
-Dentro del script primero especifico todas las conexiones de mi DFA, esta parte es solamente traducir de mi DFA a código de prolog. Su estructura es <i>connects(a,b,c)</i>, donde 'a' y 'c' son estados, y 'b' es la conexion que va de 'a' hacia 'c'. Ejemplo de todas las conexiones de q1 con todas las diferentes letras.
+Dentro del script primero especifico todas las conexiones de mi DFA, esta parte es solamente traducir de mi DFA a código de Prolog. Su estructura es <i>connects(a,b,c)</i>, donde 'a' y 'c' son estados, y 'b' es la conexion que va de 'a' hacia 'c'. Ejemplo de todas las conexiones de q1 con todas las diferentes letras.
 
 ```
 connects(q1,a,q2).
 connects(q1,b,q4).
 connects(q1,c,q1).
 ```
-También es importante declarar que solamente q6 es el estado final, por lo que tenemos que declararlo en prolog.
+También es importante declarar que solamente q6 es el estado final, por lo que tenemos que declararlo en Prolog.
 
 Después la parte que sí maneja la lógica 
 ```
@@ -118,7 +117,7 @@ El primer bloque de código es la condición de paro, la cual es que la lista es
 
 
 <b>((a|b|c)\*((aa)|(bb))(a|b|c)\*(bc))|((a|b|c)*(bbc))</b>
-La primera solución es funcional, sin embargo no es la más optima<br>
+La primera solución es funcional, sin embargo no es la más óptima<br>
 
 <b>\/[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)$/mg</b><br>
 la segunda solución es mucho más compacta. Para esto he dividido mis reglas en 3 casos específicos:
@@ -136,7 +135,7 @@ He probado mi expresión con los mismos ejemplos que usé en mis pruebas de DFA.
 
 <img src="images/Regex_tests.png" alt="Regex tests made in Regex101" width="500">
 
-Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con mis pruebas de mi implementación de DFA en prolog, mientras que las últimas 11 pruebas deberían de ser inválidas, cosa que concuerda con mis previas pruebas.
+Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con mis pruebas de mi implementación de DFA en Prolog, mientras que las últimas 11 pruebas deberían de ser inválidas, cosa que concuerda con mis previas pruebas.
 
 ## Análisis de complejidad
 
@@ -144,8 +143,8 @@ Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con 
 
 ## Referencias
 
-Automata and computability : a programmer’s perspective / Ganesh Lalitha Gopalakrishnan. (2019). CRC Press, Taylor & Francis Group, page 42
+Automata and computability : a programmer’s perspective / Ganesh Lalitha Gopalakrishnan. (2019). CRC Press, Taylor & Francis Group
 
 Mozilla (2025) Regular expression syntax cheat sheet from Developer Mozilla from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet 
 
-Wat A. (5 de febrero de 2005)
+Beginning regular expressions / Andrew Watt(2005). John Wiley & Sons
