@@ -5,29 +5,78 @@ Joel Guadalupe García Guzmán - A01713785
 
 ## Descripción
 
-El lenguaje que yo escogí se compone de Σ = a,b,c y sigue las siguientes reglas
+El lenguaje que voy a analizar es Σ = {a,b,c} con las siguientes restricciones:
 <ul>
     <li>Tiene que tener <b>aa</b> o <b>bb</b></li>
     <li>Tiene que terminar en <b>bc</b></li>
 </ul>
-Esas son todas las reglas de mi lenguaje. 
-Voy a nombrar a todos los estados como q1, q2 ... q6.
 
-## Soluciones con autómatas
+## Soluciones con DFA
+
+Por la forma en que trabajé mi DFA primero crearé el diagrama del DFA y ya que esté correcto estableceré la estructura formal de un DFA. (Gopalakrishnan, pág 43)
+
+### Diagramas de autómata
 
 <img src="images/DFA_first.jpg" alt="Mi primer DFA" width="500">
 
-Versión 1 de mi autómata, lo hice en la clase que escogimos el autómata pero le agregué algunos detalles de formato como que inicialmente no escribí el nombre de los estados y no coloqué la flecha del estado inicial.
-Tenía algunos errores en la lógica como que en cuanto llegue a q6 (estado final) se acaba el autómata y no existe ningún camino a otro lado, cosa que me daría error si en medio del string contiene ‘bc’, lo cual corregí en la segunda versión.
+<b>Versión 1 de mi diagrama de DFA.</b>
+En aspectos visuales al ser hecho en libreta no tiene la limpieza esperada.
+De la misma forma tiene algunos errores de lógica. Por ejemplo, al llegar a q6 ya no tiene a donde ir, por lo tanto si en algún momento llega a terminar en q6 y siguen otros caracteres a analizar, se creará un problema.
 
 <img src="images/DFA_boring.png" alt="DFA corregido" width="500">
 
-En esta segunda versión de mi autómata, ya está hecho digitalmente, mejorando la visibilidad. También corregí el error que cuando llegaba a q6 no tendría ningún lugar a donde ir.
+<b>Versión 2 de mi diagrama de DFA.</b>
+Fue traducido a un diagrama digital, y en general limpiando las líneas de transición para mejorar la claridad.
+Todos los errores de lógica fueron corregidos. Ahora si fue considerado el caso que llegue a q6 sin haber terminado la expresión.
 
-Aquí también están las mismas imágenes con códigos de color para más claridad del programa:
+| Origin | Action | Destination |
+| :--- | :---: | ---: |
+| q1 | a | q2 |
+| q1 | b | q4 |
+| q1 | c | q1 |
+| q2 | a | q3 |
+| q2 | b | q4 |
+| q2 | c | q1 |
+| q3 | a | q3 |
+| q3 | b | q5 |
+| q3 | c | q3 |
+| q4 | a | q2 |
+| q4 | b | q5 |
+| q4 | c | q1 |
+| q5 | a | q3 |
+| q5 | b | q5 |
+| q5 | c | q6 Final |
+| q6 | a | q3 |
+| q6 | b | q5 |
+| q6 | c | q3 |
 
-<img src="images/DFA_pretty.png" alt="DFA color code" width="500">
+<b>Tabla de estados</b>
+
+Adjunto diagrama de DFA y tabla de DFA con coordinación de colores para mayor claridad visual.
+
+<img src="images/DFA_pretty.png" alt="DFA diagram color code" width="500">
 <img src="images/Tabla_pretty.png" alt="DFA table with color" width="500">
+
+### Declaración formal de autómata
+
+Según la explicación del profesor Ganesh Lalitha Gopalakrishnan, un DFA tiene que tener 5 elementos en una tupla los cuales son los siguientes:
+
+"Formally, a deterministic finite-state automaton D is described by five items presented as a tuple (...)
+Q is a finite nonempty set of states,
+Σ is a finite nonempty alphabet,
+δ : Q ×Σ → Q is a total transition function,
+q0 ∈ Q is the initial state, and
+F ⊆ Q is a finite, possibly empty set of final (or accepting) states." (Gopalakrishnan 2019)
+
+Por lo tanto, la definición formal de mi autómata es la siguiente:
+<ul>
+    <li>Q = {q1, q2, q3, q4, q5, q6}</li>
+    <li>Σ = {a, b, c}</li>
+    <li>δ : <i>todas las conexiones de la tabla superior</i></li>
+    <li>q0 ∈ q1</li>
+    <li>F ⊆ {q6}</li>
+</ul>
+
 
 ### Explicacion de mi DFA
 
@@ -74,12 +123,20 @@ Mi primera versión de mi expresión en Regex es funcional pero bastante larga <
 Esta fue la primera versión, la cual queda tan larga pues tiene que considerar los casos que contenga el par de letras 'aa' y 'bb' en algun momento
 y terminar con 'bc' y el otro caso que es cuando el conjunto de letras 'bc' final es parte de la repeticion de letras 'bb'.
 
-<b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)</b><br>
+<b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)$/mg</b><br>
 Esta es mi segunda version, ahora más compacta gracias a que logré simplificar las condiciones a centrarme más directamente en 3 condiciones
 1) Que el string contenga 'aa' y termine en 'bc'
 2) Que el string contenga 'bb' y termine en 'bc'
 3) Caso especial que el string termine en 'bbc'
 
+También tuve que agregar el caracter '$' al final de la expresión para que el detector en línea [regex101](https://regex101.com) esto para que se considere a la línea completa al revisar si el string es válido o no.
+
+También agregué las banderas de reges /m y /g. La primera sirve para que regex pueda revisar varias múltiples líneas separadas por un <i>endline</i>. y la segunda sirve para que nos pueda marcar como válidos varios resultados en lugar de solo encontrar uno y finalizar la búsqueda.
+
 ## Referencias
 
 Automata and computability : a programmer’s perspective / Ganesh Lalitha Gopalakrishnan. (2019). CRC Press, Taylor & Francis Group, page 42
+
+Mozilla (2025) Regular expression syntax cheat sheet from Developer Mozilla from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet 
+
+Wat A. (5 de febrero de 2005)
