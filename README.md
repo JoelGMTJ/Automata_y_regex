@@ -54,19 +54,19 @@ Todos los errores de lógica fueron corregidos. Ahora si fue considerado el caso
 
 Adjunto diagrama de DFA y tabla de DFA con coordinación de colores para mayor claridad visual.
 
-<img src="images/DFA_pretty.png" alt="DFA diagram color code" width="500">
-<img src="images/Tabla_pretty.png" alt="DFA table with color" width="500">
+<img src="images/DFA_pretty.png" alt="DFA diagram color code" width="500"> <br>
+<img src="images/Tabla_pretty.png" alt="DFA table with color" width="350">
 
 ### Declaración formal de autómata
 
 Según la explicación del profesor Ganesh Lalitha Gopalakrishnan, un DFA tiene que tener 5 elementos en una tupla los cuales son los siguientes:
 
-"Formally, a deterministic finite-state automaton D is described by five items presented as a tuple (...)
-Q is a finite nonempty set of states,
-Σ is a finite nonempty alphabet,
-δ : Q ×Σ → Q is a total transition function,
-q0 ∈ Q is the initial state, and
-F ⊆ Q is a finite, possibly empty set of final (or accepting) states." (Gopalakrishnan 2019)
+<i>"Formally, a deterministic finite-state automaton D is described by five items presented as a tuple (...)
+Q is a finite nonempty set of states, <br>
+Σ is a finite nonempty alphabet, <br>
+δ : Q ×Σ → Q is a total transition function, <br>
+q0 ∈ Q is the initial state, and <br>
+F ⊆ Q is a finite, possibly empty set of final (or accepting) states."</i> <br>(Gopalakrishnan 2019)
 
 Por lo tanto, la definición formal de mi autómata es la siguiente:
 <ul>
@@ -77,11 +77,9 @@ Por lo tanto, la definición formal de mi autómata es la siguiente:
     <li>F ⊆ {q6}</li>
 </ul>
 
-
 ### Explicacion de mi DFA
 
-Voy a usar un autómata determinístico finito (<b>DFA</b> por sus siglas en inglés).
-Una breve explicación de el como funcionan los DFA es que son varios círculos llamados "estados", también tenemos las líneas llamadas "transiciones" o "saltos", a los estados que pueden ser finales los representamos como un círculo dentro de otro círculo y los llamamos "estados finales" (Gopalakrishnan 2019).
+En este proyecto estoy usando un Autómata Determinístico Finito (<b>DFA</b> por sus siglas en inglés).
 
 Mi DFA se basa en que en cuanto llegues ya sea a q3 o q5 significa que ya has cumplido con la regla de "tener 'aa' o 'bb' almenos una vez", por eso mismo una vez que llegas a esos 2 estados no puedes volver a q1, q2 o q4.
 Después de esto, q3 representa haber llegado desde una 'a' y q5 representa llegar desde una 'b'.
@@ -118,20 +116,31 @@ El primer bloque de código es la condición de paro, la cual es que la lista es
 
 ## Soluciones con Regex
 
-Mi primera versión de mi expresión en Regex es funcional pero bastante larga <br>
-<b>((a|b|c)\*((aa)|(bb))(a|b|c)\*(bc))|((a|b|c)*(bbc))</b><br>
-Esta fue la primera versión, la cual queda tan larga pues tiene que considerar los casos que contenga el par de letras 'aa' y 'bb' en algun momento
-y terminar con 'bc' y el otro caso que es cuando el conjunto de letras 'bc' final es parte de la repeticion de letras 'bb'.
 
-<b>\[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)$/mg</b><br>
-Esta es mi segunda version, ahora más compacta gracias a que logré simplificar las condiciones a centrarme más directamente en 3 condiciones
+<b>((a|b|c)\*((aa)|(bb))(a|b|c)\*(bc))|((a|b|c)*(bbc))</b>
+La primera solución es funcional, sin embargo no es la más optima<br>
+
+<b>\/[a-c]\*(aa[a-c]*bc|bb[a-c]*bc|bbc)$/mg</b><br>
+la segunda solución es mucho más compacta. Para esto he dividido mis reglas en 3 casos específicos:
 1) Que el string contenga 'aa' y termine en 'bc'
 2) Que el string contenga 'bb' y termine en 'bc'
 3) Caso especial que el string termine en 'bbc'
 
-También tuve que agregar el caracter '$' al final de la expresión para que el detector en línea [regex101](https://regex101.com) esto para que se considere a la línea completa al revisar si el string es válido o no.
+También tuve que agregar el caracter '$' al final de la expresión para que el detector en línea [regex101](https://regex101.com) considere a la línea completa al revisar si el string es válido o no.
 
-También agregué las banderas de reges /m y /g. La primera sirve para que regex pueda revisar varias múltiples líneas separadas por un <i>endline</i>. y la segunda sirve para que nos pueda marcar como válidos varios resultados en lugar de solo encontrar uno y finalizar la búsqueda.
+También he agregado las banderas de regex /m y /g. La primera sirve para que regex pueda revisar varias múltiples líneas separadas por un <i>endline</i>. y la segunda sirve para que nos pueda marcar como válidos varios resultados en lugar de solo encontrar uno y finalizar la búsqueda.
+
+### Pruebas con regex
+
+He probado mi expresión con los mismos ejemplos que usé en mis pruebas de DFA. He tenido los mismos resultados en ambas pruebas:
+
+<img src="images/Regex_tests.png" alt="Regex tests made in Regex101" width="500">
+
+Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con mis pruebas de mi implementación de DFA en prolog, mientras que las últimas 11 pruebas deberían de ser inválidas, cosa que concuerda con mis previas pruebas.
+
+## Análisis de complejidad
+
+
 
 ## Referencias
 
