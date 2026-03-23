@@ -139,7 +139,7 @@ Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con 
 
 ## Análisis de complejidad
 
-
+Mi autómata es de complejidad O(n), esto pues el lenguaje solamente "crece" hacia un lado, hacia la derecha. Con esto me refiero a que cuando analizas una letra, solamente comparas el estado actual con el paso definido por la letra siguiente, por lo que jamás tendrá que buscar letras o estados previos.
 
 ## Referencias
 
