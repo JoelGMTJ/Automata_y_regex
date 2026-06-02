@@ -113,6 +113,11 @@ El segundo bloque de código va a ocurrir siempre que el string aún tenga carac
 
 El primer bloque de código es la condición de paro, la cual es que la lista esté vacia, es decir, que ya la hayamos recorrido por completo, donde revisa si el Estadofinal si sea el final, es decir, q6.
 
+### Análisis de complejidad de autómata
+
+Mi autómata es de complejidad temporal O(n), esto pues el lenguaje solamente "crece" hacia un lado, hacia la derecha. Con esto me refiero a que cuando analizas una letra, solamente comparas el estado actual con el paso definido por la letra siguiente, por lo que jamás tendrá que buscar letras o estados previos.
+También mencionar que la complejidad espacial de mi DFA es de O(1). Esto por que no tiene que almacenar nada en la memoria, solamente el nodo en el que está actualmente, por lo que ocupa solamente ese espacio mínimo en la memoria.
+
 ## Soluciones con Regex
 
 
@@ -137,9 +142,15 @@ He probado mi expresión con los mismos ejemplos que usé en mis pruebas de DFA.
 
 Los primeros 10 strings deberían de ser marcados como válidos, de acuerdo con mis pruebas de mi implementación de DFA en Prolog, mientras que las últimas 11 pruebas deberían de ser inválidas, cosa que concuerda con mis previas pruebas.
 
-## Análisis de complejidad
+### Análisis de complejidad de regex
 
-Mi autómata es de complejidad O(n), esto pues el lenguaje solamente "crece" hacia un lado, hacia la derecha. Con esto me refiero a que cuando analizas una letra, solamente comparas el estado actual con el paso definido por la letra siguiente, por lo que jamás tendrá que buscar letras o estados previos.
+La complejidad de mi regex puede ser muy diferente según varias condiciones. Una de ellas es el motor que lo analize. Según el cómo funciona el motor, existe la posibilidad de que el autómata tenga complejidad de O(n^2).
+Esto se debe a cómo funciona la cerradura de kleene ( * ), la cual opera de forma greedy. Esto ocurre por ejemplo en la parte de [a-c]*, que al ser greedy siempre va a tomar la primera solución, pero hay casos donde al terminar la cadena, tenga que usar backtracking para tomar otros caminos para comprobar que si se cumplan todas las condiciones.
+Igualmente la complejidad espacial es de O(n), por lo que en ese aspecto es peor que el DFA.
+
+## Comparación de ambas soluciones
+Después de ver ambas soluciones, en términos de complejidad tanto espacial como temporal, mi propuesta de solución en DFA es superior a la de regex. Por lo que voy a escoger esa como mi solución final.
+Otros aspectos positivos de esa solución es que es más fácil modificar el DFA que el regex. Si por alguna razón tuviera que cambiar o agregar una regla, es más sencillo modificar mi solución en prolog, es más sencillo agregar unas pocas transiciones y nodos, mientras que en regex tendría que replantear la expresión en caso de ser una regla que altere por completo mi lenguaje.
 
 ## Referencias
 
